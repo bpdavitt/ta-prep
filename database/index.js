@@ -24,4 +24,16 @@ const addToDo = (item, callback) => {
     });
 }
 
-module.exports = {connection, addToDo};
+const getToDos = (callback) => {
+    connection.query(`SELECT * FROM todos;`, (err, result) => {
+        if(err) {
+            console.log('Error selecting todos from DB', err);
+            callback(err);
+        } else {
+            console.log(result);
+            callback(null, result);
+        }
+    })
+}
+
+module.exports = {connection, addToDo, getToDos};

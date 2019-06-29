@@ -19,6 +19,16 @@ app.post('/todos', (req, res) => {
       res.send('POST successful, todo added');
     }
   })
+});
+
+app.get('/todos', (req, res) => {
+  db.getToDos((err, result) => {
+    if (err) {
+      res.status(400).end()
+    } else {
+      res.send(result);
+    }
+  })
 })
 
 app.get("/api", (req, res) => {
