@@ -15,6 +15,7 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.getTodos = this.getTodos.bind(this);
+    this.toggleStatus = this.toggleStatus.bind(this);
   }
 
   componentDidMount() {
@@ -32,10 +33,12 @@ class App extends React.Component {
       })
   }
 
+  //Monitors input textbox for changes
   onChange(e) {
     this.setState({input:e.target.value});
   }
 
+  //Fires when submit button is clicked
   onSubmit() {
     console.log('Button Clicked!')
     axios.post('http://localhost:3000/todos', {'task': this.state.input})
@@ -48,13 +51,27 @@ class App extends React.Component {
       })
   }
 
+  //Toggles ToDo status between complete and incomplete
+  toggleStatus(item) {
+    //Toggle completed status
+    item.completed === 0 ? item.completed = 1 : item.completed = 0;
+    axios.put('http://localhost:3000/todos', item)
+      .then((response) => {
+        console.log(response);
+        this.getTodos();
+      })
+      .catch((err) => {
+        console.log('Error updating completion status for: ', item)
+      })
+  }
+
   render() {
 
     return (
       <div>
         <div>I'm so lonely without anything to complete</div>
         <Input onChange={this.onChange} onSubmit={this.onSubmit}/>
-        <Todos allTodos={this.state.todos}/>
+        <Todos allTodos={this.state.todos} toggleStatus={this.toggleStatus}/>
       </div>
       )
   };

@@ -5,7 +5,9 @@ const Todo = (props) => {
     console.log(todo);
     return (
         < >
-            {todo.completed === 1 ? <li class='completed'>{props.todo.task}</li> : <li>{props.todo.task}</li>}
+            {todo.completed === 1 ? 
+            <li class='completed' onClick={()=>{props.toggleStatus(todo)}}>{props.todo.task}</li> : 
+            <li onClick={()=>{props.toggleStatus(todo)}}>{props.todo.task}</li>}
         
         </>
     )

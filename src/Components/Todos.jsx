@@ -5,7 +5,7 @@ const Todos = (props) => {
     return (
         <ul>
             {props.allTodos.map((todo) => {
-                return <Todo todo={todo}/>
+                return <Todo todo={todo} toggleStatus={props.toggleStatus}/>
             })}
         </ul>
     )

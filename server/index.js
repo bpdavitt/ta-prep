@@ -18,7 +18,7 @@ app.post('/todos', (req, res) => {
     } else {
       res.send('POST successful, todo added');
     }
-  })
+  });
 });
 
 app.get('/todos', (req, res) => {
@@ -28,8 +28,21 @@ app.get('/todos', (req, res) => {
     } else {
       res.send(result);
     }
-  })
-})
+  });
+});
+
+app.put('/todos', (req, res) => {
+  console.log(req.body)
+  db.updateTodo(req.body, (err, result) => {
+    if (err) {
+      res.status(400).end()
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+  // res.send('PUT request received, but nothing happened')
+});
 
 app.get("/api", (req, res) => {
   console.log("successful request!");

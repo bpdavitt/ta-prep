@@ -30,10 +30,22 @@ const getToDos = (callback) => {
             console.log('Error selecting todos from DB', err);
             callback(err);
         } else {
-            console.log(result);
+            // console.log(result);
             callback(null, result);
         }
     })
 }
 
-module.exports = {connection, addToDo, getToDos};
+const updateTodo = (item, callback) => {
+    connection.query(`UPDATE todos SET completed = ${item.completed} WHERE id = ${item.id};`, (err, result) => {
+        if(err) {
+            console.log('Error updating todo in DB', err);
+            callback(err);
+        } else {
+            // console.log(result);
+            callback(null, result);
+        }
+    })
+}
+
+module.exports = {connection, addToDo, getToDos, updateTodo};
