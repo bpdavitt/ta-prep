@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Input from './Components/Input.jsx'
 import axios from 'axios';
+import Todos from './Components/Todos.jsx';
 
 class App extends React.Component {
 
@@ -13,9 +14,14 @@ class App extends React.Component {
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.getTodos = this.getTodos.bind(this);
   }
 
   componentDidMount() {
+    this.getTodos();
+  }
+
+  getTodos () {
     axios.get('http://localhost:3000/todos')
       .then((response) => {
         console.log(response.data);
@@ -35,6 +41,7 @@ class App extends React.Component {
     axios.post('http://localhost:3000/todos', {'task': this.state.input})
       .then((response) => {
         console.log(response.data);
+        this.getTodos();
       })
       .catch((err) => {
         console.log('Error posting data to database')
@@ -47,6 +54,7 @@ class App extends React.Component {
       <div>
         <div>I'm so lonely without anything to complete</div>
         <Input onChange={this.onChange} onSubmit={this.onSubmit}/>
+        <Todos allTodos={this.state.todos}/>
       </div>
       )
   };
