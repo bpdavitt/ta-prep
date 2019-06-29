@@ -1,3 +1,11 @@
 .completed {
     text-decoration: line-through;
 }
+
+button {
+    margin-left: 10px;
+}
+
+li {
+    margin: 5px;
+}

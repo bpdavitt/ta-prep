@@ -44,6 +44,19 @@ app.put('/todos', (req, res) => {
   // res.send('PUT request received, but nothing happened')
 });
 
+app.delete('/todos:id', (req, res) => {
+  console.log(req.url)
+  const id = Number(req.url.split(':')[1]);
+  db.deleteTodo(id, (err, result) => {
+    if (err) {
+      res.status(400).end()
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  })
+})
+
 app.get("/api", (req, res) => {
   console.log("successful request!");
   res.send("Hi there");

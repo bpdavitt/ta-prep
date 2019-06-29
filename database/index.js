@@ -48,4 +48,16 @@ const updateTodo = (item, callback) => {
     })
 }
 
-module.exports = {connection, addToDo, getToDos, updateTodo};
+const deleteTodo = (id, callback) => {
+    connection.query(`DELETE FROM todos WHERE id = ${id}`, (err, result) => {
+        if(err) {
+            console.log('Error deleting todo in DB', err);
+            callback(err);
+        } else {
+            // console.log(result);
+            callback(null, result);
+        }
+    })
+}
+
+module.exports = {connection, addToDo, getToDos, updateTodo, deleteTodo};

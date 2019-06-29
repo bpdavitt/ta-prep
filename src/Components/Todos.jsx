@@ -5,7 +5,10 @@ const Todos = (props) => {
     return (
         <ul>
             {props.allTodos.map((todo) => {
-                return <Todo todo={todo} toggleStatus={props.toggleStatus}/>
+                return <Todo 
+                            todo={todo} 
+                            toggleStatus={props.toggleStatus}
+                            deleteItem={props.deleteItem}/>
             })}
         </ul>
     )
